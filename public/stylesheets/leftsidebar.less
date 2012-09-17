@@ -1,0 +1,33 @@
+@import "sidebar.less";
+@import "util.less";
+
+
+.left-sidebar {
+  .sidebar();
+  float: left;
+  clear: left;
+  .hand();
+
+  .category {
+    padding: 5px 0px 5px 5px;
+    color: black;
+
+    .category-icon {
+      margin-left: 15px;
+      padding: 2px;
+    }
+
+    .category-text {
+      display: inline-block;
+    }
+
+    &:hover {
+      background-color: @sorbet-dark-red;
+      font-weight: bold;
+    }
+  }
+
+  .selected {
+    font-weight: bold;
+  }
+}

@@ -1,0 +1,77 @@
+@import "sidebar.less";
+@import "util.less";
+
+.main-container {
+  height: 100%;
+
+  padding: 0 @sidebar-width 0 @sidebar-width;
+
+  .stage {
+    height: 320px;
+    background-color: black;
+    border-left: 1px solid @light-gray;
+    border-right: 1px solid @light-gray;
+
+    .auction {
+      color: white;
+
+      .auction-left {
+        width: 320px;
+        height: 320px;
+      }
+
+      .auction-right {
+        padding-top: 10px;
+
+        .auction-title {
+          text-align: center;
+          font-size: 24px;
+        }
+
+        .auction-description {
+          margin: 10px 10px 10px 330px;
+        }
+      }
+    }
+  }
+
+  .pit {
+    min-height: 100%;
+    display: block;
+    background-color: white;
+    border-left: 1px solid @light-gray;
+    border-right: 1px solid @light-gray;
+
+    .toolbar {
+      height: 100px;
+      background-color: @sorbet-red;
+      border-top: 1px solid @light-gray;
+      border-bottom: 1px solid @light-gray;
+
+      table {
+        min-width: 100%;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+
+        .bid-image {
+          width: 50px;
+          height: 50px;
+          padding: 10px;
+        }
+
+        .bid-text {
+        }
+      }
+    }
+
+    .bidder {
+      display: inline-block;
+
+      .fbthumb {
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+}

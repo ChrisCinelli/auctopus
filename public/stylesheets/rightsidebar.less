@@ -1,0 +1,46 @@
+@import "sidebar.less";
+@import "util.less";
+
+.right-sidebar {
+  .sidebar();
+  float: right;
+  clear: right;
+
+  .upcoming {
+    .queued {
+      width: @sidebar-width;
+      height: 60px;
+      line-height: 60px;
+      border-bottom: 1px solid @light-gray;
+      .opacity();
+      .hand();
+
+      .queued-thumb {
+        float: left;
+        width: 50px;
+        height: 50px;
+        margin: 0px 5px 0px 20px;
+      }
+
+      .queued-title {
+        float: left;
+        margin-left: 10px;
+      }
+
+      &:hover {
+        background-color: @sorbet-dark-red;
+        font-weight: bold;
+        .opacity(1);
+      }
+    }
+
+    .selected {
+      font-weight: bold;
+      .opacity(1);
+    }
+  }
+
+  .shown {
+    border-top: 1px solid @light-gray;
+  }
+}

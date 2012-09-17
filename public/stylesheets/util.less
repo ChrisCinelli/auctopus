@@ -1,0 +1,23 @@
+@sorbet-red: #F2F2F2;
+@sorbet-dark-red: #47ACD2;
+@light-gray: lighten(gray, 25px);
+
+
+.hand() {
+  cursor: pointer;
+  cursor: hand;
+}
+
+
+.opacity(@value: 0.6) {
+  opacity: @value;
+  @percentage: @value * 100;
+  filter: alpha(opacity=@percentage);
+}
+
+
+.shadow(@params: 0px 1px 1px 1px gray) {
+  box-shadow:         @params;
+  -webkit-box-shadow: @params;
+  -moz-box-shadow:    @params;
+}

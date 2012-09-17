@@ -7,7 +7,10 @@
     <link rel="stylesheet" type="text/css"
           href="stylesheets/third_party/jquery/jquery-ui-timepicker.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/sorbet.css">
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="javascripts/bidsy.js"></script>
   </head>
-  <body>
+  <body onload="bidsy.App.getInstance().init();">
   </body>
 </html>

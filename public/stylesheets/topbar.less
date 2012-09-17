@@ -1,0 +1,62 @@
+@import "sidebar.less";
+@import "util.less";
+
+
+.topbar {
+  height: 60px;
+  padding: 10px @sidebar-width 0 @sidebar-width;
+  background-color: white;
+  .shadow(1px 1px 3px 1px gray);
+  text-align: center;
+
+  .logo {
+    width: 64px;
+    height: 69px;
+    display: inline-block;
+    padding-bottom: 5px;
+    .hand();
+  }
+}
+
+
+.left-topbar {
+  float: left;
+  width: @sidebar-width - 10;
+  display: inline-block;
+  padding: 15px 0 5px 20px;
+}
+
+
+.right-topbar {
+  float: right;
+  width: @sidebar-width - 10;
+  display: inline-block;
+  font-weight: bold;
+
+  .facebook-connect {
+    .facebook-connect-button {
+      width: 233px;
+      height: 40px; 
+    }
+
+    padding: 15px 0 5px 10px;
+  }
+
+  .user-panel {
+    padding: 10px 0 5px 10px;
+
+    .fbthumb {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    .dropdown {
+      display: inline-block;
+
+      &:hover {
+        .hand();
+      }
+    }
+  }
+}
