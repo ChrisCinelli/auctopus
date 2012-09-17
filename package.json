@@ -7,8 +7,10 @@
     },
     "dependencies": {
         "ejs": "*",
-        "express": "3.0.0rc2",
+        "express": "3.x",
+        "express-partials": "*",
         "less-middleware": "*",
-        "socket.io": "0.9.10"
+        "mongoose": "*",
+        "socket.io": "*"
     }
 }

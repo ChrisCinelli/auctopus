@@ -4,18 +4,20 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
+  , partials = require('express-partials')
   , http = require('http')
   , path = require('path')
+  , routes = require('./routes')
   , sio = require('socket.io');
 
 var app = express();
+app.use(partials());
 
 app.configure(function() {
-  app.set('port', process.env.PORT || 3000);
+  app.set('port', process.env.PORT || 8080);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'ejs');
-  app.use(express.favicon());
+  app.use(express.favicon(__dirname + '/public/favicon.ico'));
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
