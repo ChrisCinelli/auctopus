@@ -1,16 +1,16 @@
 {
-    "name": "auctopus",
-    "version": "0.0.1",
-    "private": true,
-    "scripts": {
-        "start": "node app"
-    },
-    "dependencies": {
-        "ejs": "*",
-        "express": "3.x",
-        "express-partials": "*",
-        "less-middleware": "*",
-        "mongoose": "*",
-        "socket.io": "*"
-    }
+  "name": "auctopus",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "ejs": "*",
+    "express": "3.x",
+    "express-partials": "*",
+    "less-middleware": "*",
+    "mongoose": "*",
+    "socket.io": "*"
+  }
 }
