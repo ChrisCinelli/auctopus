@@ -1,8 +1,4 @@
 
-/**
- * Module dependencies.
- */
-
 var express = require('express')
   , partials = require('express-partials')
   , http = require('http')
@@ -12,6 +8,7 @@ var express = require('express')
 
 var app = express();
 app.use(partials());
+
 app.configure(function() {
   app.set('port', process.env.PORT || 8080);
   app.set('views', __dirname + '/views');
@@ -26,6 +23,7 @@ app.configure(function() {
   app.use(require('less-middleware')({ src: __dirname + '/public' }));
   app.use(express.static(path.join(__dirname, 'public')));
 });
+
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
