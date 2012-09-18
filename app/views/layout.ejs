@@ -14,9 +14,8 @@
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="javascripts/third_party/mixpanel.js"></script>
     <script type="text/javascript" src="http://localhost:9810/compile?id=bidsy"></script>
-    <script type="text/javascript" src="javascripts/bidsy.js"></script>
   </head>
-  <body onload="bidsy.App.getInstance().init();">
+  <body onload="bidsy.App.getInstance();">
     <%- body %>
   </body>
 </html>

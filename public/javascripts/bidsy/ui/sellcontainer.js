@@ -11,3 +11,4 @@ goog.require('goog.ui.Component');
  */
 bidsy.ui.SellContainer = function() {
 };
+goog.inherits(bidsy.ui.SellContainer, goog.ui.Component);

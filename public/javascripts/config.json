@@ -1,29 +1,25 @@
 {
-  "checks": {
-    "checkRegExp": "ERROR",
-    "checkTypes": "ERROR",
-    "checkVars": "ERROR",
-    "deprecated": "ERROR",
-    "fileoverviewTags": "ERROR",
-    "invalidCasts": "ERROR",
-    "missingProperties": "ERROR",
-    "nonStandardJsDocs": "ERROR",
-    "undefinedVars": "ERROR"
-  },
-  "externs": [
-    "externs/socket.io.js"
-  ],
-  "debug": true,
-  "experimental-compiler-options": {
-    "generateExports": true
-  },
-  "id": "bidsy",
-  "inputs": [
-    "bidsy/app.js",
-    "bidsy/client.js"
-  ],
-  "jsdoc-html-output-path": "doc.html",
-  "level": "VERBOSE",
-  "mode": "ADVANCED",
-  "paths": [ "bidsy" ]
+    "checks": {
+        "checkRegExp": "ERROR"
+      , "checkTypes": "ERROR"
+      , "checkVars": "ERROR",
+      , "deprecated": "ERROR"
+      , "fileoverviewTags": "ERROR"
+      , "invalidCasts": "ERROR"
+      , "missingProperties": "ERROR"
+      , "nonStandardJsDocs": "ERROR"
+      , "undefinedVars": "ERROR"
+    }
+  , "debug": true
+  , "experimental-compiler-options": { "generateExports": true }
+  , "externs": [
+        "externs/console.js"
+      , "externs/socket.io.js"
+    ]
+  , "id": "bidsy"
+  , "inputs": [ "bidsy/app.js" ]
+  , "jsdoc-html-output-path": "doc.html"
+  , "level": "VERBOSE"
+  , "mode": "ADVANCED"
+  , "paths": [ "bidsy" ]
 }
