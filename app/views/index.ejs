@@ -35,7 +35,10 @@
     </div>
 
     <div class="sell-body">
-      <!-- TODO(gareth) -->
+      <%- partial('itemview', { rows: Math.ceil(categories.length / 3), cols: 3, categories: categories }) %>
+      <%- partial('auctionview') %>
+      <%- partial('paymentview') %>
+      <%- partial('shareview') %>
     </div>
   </div>
 </div>

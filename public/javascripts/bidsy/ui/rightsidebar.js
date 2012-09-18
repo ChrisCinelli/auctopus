@@ -20,3 +20,20 @@ bidsy.ui.RightSidebar = function() {
    this.upcoming_ = new bidsy.ui.Upcoming();
 };
 goog.inherits(bidsy.ui.RightSidebar, goog.ui.Component);
+
+
+/**
+ * Displays the queue of upcoming auctions.
+ * @param {Array} auctions are map representations of the auctions to show.
+ */
+bidsy.ui.RightSidebar.prototype.show = function(auctions) {
+  this.upcoming_.show(auctions);
+};
+
+
+/**
+ * Wipes the right sidebar.
+ */
+bidsy.ui.RightSidebar.prototype.wipe = function() {
+  this.upcoming_.wipe();
+};

@@ -42,5 +42,10 @@ http.createServer(app).listen(app.get('port'), function() {
   var io = sio.listen(this);
   io.sockets.on('connection', function(socket) {
     console.log('Client ' + socket.id + ' connected!');
+
+    socket.on('createAuction', auctopus.createAuction);
+    socket.on('deleteAuction', auctopus.deleteAuction);
+    socket.on('editAuction', auctopus.editAuction);
+    socket.on('getRoom', auctopus.getRoom);
   });
 });

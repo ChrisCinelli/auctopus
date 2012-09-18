@@ -1,0 +1,16 @@
+{namespace bidsy.ui.stage}
+
+/**
+ * @param description
+ * @param images
+ * @param title
+ */
+{template .auction}
+  <div class="auction">
+    <img src="{$images[0]}" class="auction-left" align="left" />
+    <div class="auction-right">
+      <div class="auction-title">{$title}</div>
+      <div class="auction-description">{$description}</div>
+    </div>
+  </div>
+{/template}

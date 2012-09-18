@@ -115,9 +115,13 @@ goog.addSingletonGetter(bidsy.App);
  * @private
  */
 bidsy.App.prototype.onCategory_ = function(e) {
-  // TODO(gareth)
-  console.log('onCategory_');
-  console.log(e);
+  this.mainContainer_.wipe();
+  this.rightSidebar_.wipe();
+  bidsy.Client.getInstance().joinRoom({ 'category': e['category'] },
+      function(response) {
+        // TODO(gareth)
+        console.log(response);
+      });
 };
 
 

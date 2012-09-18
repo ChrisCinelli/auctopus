@@ -1,0 +1,38 @@
+<div class="auction-view">
+  <legend>Great! Let's iron out some of the auction details now.</legend>
+
+  <div class="control-group">
+    <label class="input-label control-label" for="datepicker">Date</label>
+    <div class="controls">
+      <input type="text" class="input-xlarge" id="datepicker" placeholder="Enter a listing date..."/>
+      <span class="help-inline"></span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="input-label control-label" for="timepicker">Time</label>
+    <div class="controls">
+      <input type="text" class="input-xlarge" id="timepicker" placeholder="And a time..."/>
+      <span class="help-inline"></span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="input-label control-label" for="minimum">Minimum</label>
+    <div class="controls">
+      <div class="input-prepend input-append">
+        <span class="add-on">$</span>
+        <input class="span2" id="minimum" size="16" type="text" placeholder="Bidding starts at...">
+        <span class="add-on">.00</span>
+      </div>
+      <span class="help-inline"></span>
+    </div>
+  </div>
+
+  <button class="btn btn-primary btn-next auction-next">Next</button>
+
+  <script type="text/javascript">
+    $("#datepicker").datepicker({});
+    $('#timepicker').timepicker({ showPeriod: true, showLeadingZero: true });
+  </script>
+</div>

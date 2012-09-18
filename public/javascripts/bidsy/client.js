@@ -42,7 +42,8 @@ bidsy.Client.prototype.createAuction = function(data, callback) {
  * @param {Function} callback is a function to call once we get a response.
  */
 bidsy.Client.prototype.deleteAuction = function(data, callback) {
-  this.socket_.emit('deleteAuction', data, callback);
+  // TODO(gareth)
+  // this.socket_.emit('deleteAuction', data, callback);
 };
 
 
@@ -52,7 +53,8 @@ bidsy.Client.prototype.deleteAuction = function(data, callback) {
  * @param {Function} callback is a function to call once we get a response.
  */
 bidsy.Client.prototype.editAuction = function(data, callback) {
-  this.socket_.emit('editAuction', data, callback);
+  // TODO(gareth)
+  // this.socket_.emit('editAuction', data, callback);
 };
 
 
@@ -61,6 +63,6 @@ bidsy.Client.prototype.editAuction = function(data, callback) {
  * @param {Object} data identifies the room we're joining.
  * @param {Function} callback is a function to call once we get a response.
  */
-bidsy.Client.prototype.join = function(data, callback) {
-  this.socket_.emit('join', data, callback);
+bidsy.Client.prototype.joinRoom = function(data, callback) {
+  this.socket_.emit('joinRoom', data, callback);
 };

@@ -25,17 +25,19 @@ exports.index = function(req, res) {
 };
 
 
-exports.createAuction = function(data) {
+exports.createAuction = function(data, callback) {
+  console.log(data);
+  console.log(callback);
 };
 
 
-exports.deleteAuction = function(data) {
+exports.deleteAuction = function(data, callback) {
 };
 
 
-exports.editAuction = function(data) {
+exports.editAuction = function(data, callback) {
 };
 
 
-exports.getRoom = function(data) {
+exports.getRoom = function(data, callback) {
 }
