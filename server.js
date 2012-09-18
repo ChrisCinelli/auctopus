@@ -35,7 +35,6 @@ app.configure('development', function(){
 
 var auctopus = require('./app/auctopus')
 app.get('/', auctopus.index);
-
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 
