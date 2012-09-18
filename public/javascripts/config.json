@@ -2,7 +2,7 @@
     "checks": {
         "checkRegExp": "ERROR"
       , "checkTypes": "ERROR"
-      , "checkVars": "ERROR",
+      , "checkVars": "ERROR"
       , "deprecated": "ERROR"
       , "fileoverviewTags": "ERROR"
       , "invalidCasts": "ERROR"
