@@ -1,0 +1,30 @@
+{namespace bidsy.ui.toolbar}
+
+/**
+ * @param bid
+ */
+{template .main}
+  <table>
+    <tr>
+      <td>
+        <img class="fbthumb bid-image"
+             src="http://graph.facebook.com/1366590149/picture?type=square" />
+        </div>
+        <div class="bid-text">Gareth Aye</div>
+      </td>
+      <td>
+        <img src="/images/money.png" class="bid-image" />
+        <div class="bid-text">${$bid}</div>
+      </td>
+      <td>
+        <!-- Graciously provided by Nahas M.A. -->
+        <!-- http://nahas-pro.deviantart.com/, iconfinder.com/icondetails/66976/48 -->
+        <img src="/images/timer.png" class="bid-image" />
+        <div class="bid-text bid-timer"></div>
+      </td>
+      <td>
+        <button class="btn btn-large btn-danger btn-bid">Bid Now!</button>
+      </td>
+    </tr>
+  </table>
+{/template}
