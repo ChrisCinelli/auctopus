@@ -1,0 +1,41 @@
+<div class="left-topbar">
+  <div class="btn-group">
+    <button class="btn btn-large btn-info btn-home">Home</button>
+    <button class="btn btn-large btn-success btn-sell">Sell Something</button>
+  </div>
+</div>
+<div class="right-topbar">
+</div>
+<div class="topbar">
+  <img src="images/auction_blue.png" class="logo" />
+</div>
+<div class="left-sidebar">
+  <div class="heading">CATEGORIES</div>
+  <%- partial('category', { collection: categories }) %>
+</div>
+<div class="right-sidebar">
+  <div class="heading">IN THIS ROOM</div>
+  <div class="upcoming"></div>
+</div>
+<div class="main-container">
+  <div class="stage"></div>
+  <div class="pit">
+    <div class="toolbar"></div>
+  </div>
+</div>
+<div class="sell-container">
+  <div class="sell">
+    <div class="sell-nav">
+      <ul class="nav nav-tabs">
+        <li class="sell-item"><a href="#">1. Item</a></li>
+        <li class="sell-auction"><a href="#">2. Auction</a></li>
+        <li class="sell-payment"><a href="#">3. Get Paid</a></li>
+        <li class="sell-share"><a href="#">4. Share</a></li>
+      </ul>
+    </div>
+
+    <div class="sell-body">
+      <!-- TODO(gareth) -->
+    </div>
+  </div>
+</div>
