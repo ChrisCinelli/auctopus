@@ -33,8 +33,11 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-var auctopus = require('./app/auctopus')
+var auctopus = require('./app/auctopus');
+
+// HTTP routes
 app.get('/', auctopus.index);
+
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 
@@ -42,6 +45,7 @@ http.createServer(app).listen(app.get('port'), function() {
   io.sockets.on('connection', function(socket) {
     console.log('Client ' + socket.id + ' connected!');
 
+    // WebSocket routes
     socket.on('createAuction', auctopus.createAuction);
     socket.on('deleteAuction', auctopus.deleteAuction);
     socket.on('editAuction', auctopus.editAuction);
