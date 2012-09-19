@@ -46,9 +46,20 @@ http.createServer(app).listen(app.get('port'), function() {
     console.log('Client ' + socket.id + ' connected!');
 
     // WebSocket routes
-    socket.on('createAuction', auctopus.createAuction);
-    socket.on('deleteAuction', auctopus.deleteAuction);
-    socket.on('editAuction', auctopus.editAuction);
-    socket.on('joinRoom', auctopus.joinRoom);
+    socket.on('disconnect', function() {
+      auctopus.disconnect(io, socket);
+    });
+    socket.on('createAuction', function(data, callback) {
+      auctopus.createAuction(io, socket, data, callback);
+    });
+    socket.on('deleteAuction', function(data, callback) {
+      auctopus.deleteAuction(io, socket, data, callback);
+    });
+    socket.on('editAuction', function(data, callback) {
+      auctopus.editAuction(io, socket, data, callback);
+    });
+    socket.on('joinRoom', function(data, callback) {
+      auctopus.joinRoom(io, socket, data, callback);
+    });
   });
 });

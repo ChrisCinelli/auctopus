@@ -23,6 +23,8 @@ bidsy.Client.prototype.init = function() {
   this.socket_ = io.connect('http://localhost', {
       'sync disconnect on unload': true
   });
+
+  this.socket_.on('userDeltas', goog.bind(this.onUserDeltas_, this));
 };
 
 
@@ -65,4 +67,12 @@ bidsy.Client.prototype.editAuction = function(data, callback) {
  */
 bidsy.Client.prototype.joinRoom = function(data, callback) {
   this.socket_.emit('joinRoom', data, callback);
+};
+
+
+/**
+ * @private
+ */
+bidsy.Client.prototype.onUserDeltas_ = function(data) {
+  console.log(data);
 };

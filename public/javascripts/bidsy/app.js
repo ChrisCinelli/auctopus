@@ -119,8 +119,11 @@ bidsy.App.prototype.onCategory_ = function(e) {
   this.rightSidebar_.wipe();
   bidsy.Client.getInstance().joinRoom({ 'category': e['category'] },
       function(response) {
-        // TODO(gareth)
         console.log(response);
+        if (response['auctions'].length > 0) {
+          bidsy.App.getInstance().mainContainer_.show(response['auctions'][0]);
+          bidsy.App.getInstance().rightSidebar_.show(response['auctions']);
+        }
       });
 };
 

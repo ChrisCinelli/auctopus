@@ -25,21 +25,68 @@ exports.index = function(req, res) {
 };
 
 
-exports.createAuction = function(data, callback) {
+exports.disconnect = function(io, socket) {
+  for (var room in io.sockets.manager.roomClients[socket.id]) {
+    if (/^\s*$/.test(room)) {
+      continue;
+    }
+
+    room = room.substr(1, room.length);
+  }
+
+  io.sockets.in(room).emit('userDeltas', [
+      {
+          'id': socket.id
+        , 'sign': '-'
+      }
+  ]);
+};
+
+
+exports.createAuction = function(io, socket, data, callback) {
+  // TODO(gareth)
   console.log(data);
   callback(data);
 };
 
 
-exports.deleteAuction = function(data, callback) {
+exports.deleteAuction = function(io, socket, data, callback) {
+  // TODO(gareth)
 };
 
 
-exports.editAuction = function(data, callback) {
+exports.editAuction = function(io, socket, data, callback) {
+  // TODO(gareth)
 };
 
 
-exports.joinRoom = function(data, callback) {
-  console.log(data);
-  callback(data);
+exports.joinRoom = function(io, socket, data, callback) {
+  var room = data.category;
+
+  // Join and tell everyone in the room.
+  socket.join(room);
+  io.sockets.in(room).emit('userDeltas', [
+      {
+          'id': socket.id
+        , 'sign': '+',
+      }
+  ]);
+
+  // TODO(gareth): Make sure we've populated users before we write back...
+  var users = [];
+  io.sockets.clients(room).forEach(function(client) {
+    users.push({
+        'id': client.id
+      , 'sign': '+'
+    });
+  }, this);
+
+  Category.findOne({ name: data.category })
+      .populate('auctions')
+      .exec(function(err, category) {
+        callback({
+            auctions: category.auctions
+          , users: users
+        });
+      });
 }

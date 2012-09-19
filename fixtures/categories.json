@@ -1,0 +1,182 @@
+[
+    {
+        "_id" : { "$oid" : "505a146defc099413e50002d" }
+      , "name": "antiques-and-collectibles"
+      , "icon": "icon-gift"
+      , "label": "Antiques & Collectibles"
+      , "auctions": [
+            { "$oid": "505a1641efc099413e500057" }
+          , { "$oid": "505a1641efc099413e50005b" }
+          , { "$oid": "505a1641efc099413e50005c" }
+        ]
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e50002e" }
+      , "name": "arts-and-crafts"
+      , "icon": "icon-pencil"
+      , "label": "Arts & Crafts"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e50002f" }
+      , "name": "baby"
+      , "icon": "icon-bold"
+      , "label": "Baby"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500030" }
+      , "name": "books"
+      , "icon": "icon-book"
+      , "label": "Books"
+      , "auctions": [
+            { "$oid": "505a1641efc099413e500058" }
+        ]
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500031" }
+      , "name": "cameras-and-photography"
+      , "icon": "icon-camera"
+      , "label": "Cameras & Photography"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500032" }
+      , "name": "cell-phones-and-tablets"
+      , "icon": "icon-signal"
+      , "label": "Cell Phones & Tablets"
+      , "auctions": [
+          { "$oid": "505a1641efc099413e500055" }
+        ]
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500033" }
+      , "name": "clothing-shoes-and-accessories"
+      , "icon": "icon-tags"
+      , "label": "Clothing, Shoes, & Accessories"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500034" }
+      , "name": "computers-and-networking"
+      , "icon": "icon-hdd"
+      , "label": "Computers & Networking"
+      , "auctions": [
+          { "$oid": "505a1641efc099413e500055" }
+        ]
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500035" }
+      , "name": "dvds-and-movies"
+      , "icon": "icon-film"
+      , "label": "DVDs & Movies"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500036" }
+      , "name": "entertainment-memorabilia"
+      , "icon": "icon-picture"
+      , "label": "Entertainment Memorabilia"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500037" }
+      , "name": "gift-cards-and-coupons"
+      , "icon": "icon-barcode"
+      , "label": "Gift Cards & Coupons"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500038" }
+      , "name": "health-and-beauty"
+      , "icon": "icon-heart"
+      , "label": "Health & Beauty"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500039" }
+      , "name": "home-and-garden"
+      , "icon": "icon-leaf"
+      , "label": "Home & Garden"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e50003a" }
+      , "name": "jewelry-and-watches"
+      , "icon": "icon-time"
+      , "label": "Jewelry & Watches"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e50003b" }
+      , "name": "music"
+      , "icon": "icon-headphones"
+      , "label": "Music"
+      , "auctions": [
+            { "$oid": "505a1641efc099413e50005b" }
+        ]
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e50003c" }
+      , "name": "musical-instruments-and-gear"
+      , "icon": "icon-music"
+      , "label": "Musical Instruments & Gear"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e50003d" }
+      , "name": "pets"
+      , "icon": "icon-bell"
+      , "label": "Pets"
+      , "auctions": [
+            { "$oid": "505a1641efc099413e500057" }
+        ]
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e50003e" }
+      , "name": "real-estate"
+      , "icon": "icon-home"
+      , "label": "Real Estate"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e50003f" }
+      , "name": "sporting-goods-and-memorabilia"
+      , "icon": "icon-star"
+      , "label": "Sporting Goods & Memorabilia"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500040" }
+      , "name": "tickets"
+      , "icon": "icon-bookmark"
+      , "label": "Tickets"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500041" }
+      , "name": "toys-and-hobbies"
+      , "icon": "icon-qrcode"
+      , "label": "Toys & Hobbies"
+      , "auctions": [
+            { "$oid": "505a1641efc099413e500059" }
+          , { "$oid": "505a1641efc099413e50005a" }
+          , { "$oid": "505a1641efc099413e500055" }
+          , { "$oid": "505a1641efc099413e500056" }
+        ]
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500042" }
+      , "name": "travel"
+      , "icon": "icon-plane"
+      , "label": "Travel"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500043" }
+      , "name": "video-games-and-consoles"
+      , "icon": "icon-fire"
+      , "label": "Video Games & Consoles"
+    }
+  , {
+        "_id" : { "$oid" : "505a146defc099413e500044" }
+      , "name": "random"
+      , "icon": "icon-random"
+      , "label": "Random"
+      , "auctions": [
+            { "$oid": "505a1641efc099413e500055" }
+          , { "$oid": "505a1641efc099413e500056" }
+          , { "$oid": "505a1641efc099413e500057" }
+          , { "$oid": "505a1641efc099413e500058" }
+          , { "$oid": "505a1641efc099413e500059" }
+          , { "$oid": "505a1641efc099413e50005a" }
+          , { "$oid": "505a1641efc099413e50005b" }
+          , { "$oid": "505a1641efc099413e50005c" }
+        ]
+    }
+]
