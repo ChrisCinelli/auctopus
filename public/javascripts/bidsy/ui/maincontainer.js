@@ -29,6 +29,15 @@ bidsy.ui.MainContainer = function() {
 goog.inherits(bidsy.ui.MainContainer, goog.ui.Component);
 
 
+/** @inheritDoc */
+bidsy.ui.MainContainer.prototype.enterDocument = function() {
+  goog.base(this, 'enterDocument');
+
+  this.stage_.decorate(goog.dom.getElementByClass('stage'));
+  this.pit_.decorate(goog.dom.getElementByClass('pit'));
+};
+
+
 /**
  * Displays the new auction.
  * @param {Object} auction is a map representation of the auction to show.

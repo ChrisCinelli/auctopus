@@ -30,6 +30,13 @@ bidsy.ui.Pit = function() {
 goog.inherits(bidsy.ui.Pit, goog.ui.Component);
 
 
+/** @inheritDoc */
+bidsy.ui.Pit.prototype.enterDocument = function() {
+  goog.base(this, 'enterDocument');
+
+  this.toolbar_.decorate(goog.dom.getElementByClass('toolbar'));
+};
+
 /**
  * Shows the pit.
  * @param {Object} auction is a map representation of the auction to show.

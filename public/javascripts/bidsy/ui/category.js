@@ -18,6 +18,7 @@ goog.inherits(bidsy.ui.Category, goog.ui.Component);
 /** @inheritDoc */
 bidsy.ui.Category.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
+
   this.getHandler().listen(
       this.getElement(), goog.events.EventType.CLICK, this.setSelected_);
 };
@@ -26,6 +27,7 @@ bidsy.ui.Category.prototype.enterDocument = function() {
 /** @inheritDoc */
 bidsy.ui.Category.prototype.exitDocument = function() {
   goog.base(this, 'exitDocument');
+
   this.getHandler().unlisten(
       this.getElement(), goog.events.EventType.CLICK, this.setSelected_);
 };

@@ -22,6 +22,14 @@ bidsy.ui.RightSidebar = function() {
 goog.inherits(bidsy.ui.RightSidebar, goog.ui.Component);
 
 
+/** @inheritDoc */
+bidsy.ui.RightSidebar.prototype.enterDocument = function() {
+  goog.base(this, 'enterDocument');
+
+  this.upcoming_.decorate(goog.dom.getElementByClass('upcoming'));
+};
+
+
 /**
  * Displays the queue of upcoming auctions.
  * @param {Array} auctions are map representations of the auctions to show.

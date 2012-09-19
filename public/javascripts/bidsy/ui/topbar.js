@@ -25,6 +25,7 @@ goog.inherits(bidsy.ui.Topbar, goog.ui.Component);
 /** @inheritDoc */
 bidsy.ui.Topbar.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
+
   this.logo_.decorate(goog.dom.getElementByClass('logo'));
   goog.events.listen(this.logo_.getElement(),
                      goog.events.EventType.CLICK,
@@ -35,6 +36,7 @@ bidsy.ui.Topbar.prototype.enterDocument = function() {
 /** @inheritDoc */
 bidsy.ui.Topbar.prototype.exitDocument = function() {
   goog.base(this, 'exitDocument');
+
   goog.events.unlisten(this.logo_, goog.events.EventType.CLICK,
                        this.onLogoClick_);
 };

@@ -49,6 +49,6 @@ http.createServer(app).listen(app.get('port'), function() {
     socket.on('createAuction', auctopus.createAuction);
     socket.on('deleteAuction', auctopus.deleteAuction);
     socket.on('editAuction', auctopus.editAuction);
-    socket.on('getRoom', auctopus.getRoom);
+    socket.on('joinRoom', auctopus.joinRoom);
   });
 });

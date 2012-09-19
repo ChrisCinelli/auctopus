@@ -27,7 +27,7 @@ exports.index = function(req, res) {
 
 exports.createAuction = function(data, callback) {
   console.log(data);
-  console.log(callback);
+  callback(data);
 };
 
 
@@ -39,5 +39,7 @@ exports.editAuction = function(data, callback) {
 };
 
 
-exports.getRoom = function(data, callback) {
+exports.joinRoom = function(data, callback) {
+  console.log(data);
+  callback(data);
 }

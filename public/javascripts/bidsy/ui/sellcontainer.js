@@ -144,6 +144,7 @@ goog.inherits(bidsy.ui.SellContainer, goog.ui.Component);
 /** @inheritDoc */
 bidsy.ui.SellContainer.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
+
   this.itemTab_.decorate(goog.dom.getElementByClass('sell-item'));
   goog.events.listen(this.itemTab_.getElement(), goog.events.EventType.CLICK,
                      this.onItemTabClick_, false, this);
@@ -237,6 +238,7 @@ bidsy.ui.SellContainer.prototype.enterDocument = function() {
 /** @inheritDoc */
 bidsy.ui.SellContainer.prototype.exitDocument = function() {
   goog.base(this, 'exitDocument');
+
   goog.events.unlisten(this.itemTab_.getElement(),
                        goog.events.EventType.CLICK,
                        this.onItemTabClick_);

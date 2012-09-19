@@ -33,6 +33,7 @@ goog.inherits(bidsy.ui.LeftSidebar, goog.ui.Component);
 /** @inheritDoc */
 bidsy.ui.LeftSidebar.prototype.enterDocument = function() {
   goog.base(this, 'enterDocument');
+
   var elements = goog.dom.getElementsByClass('category');
   goog.array.forEach(elements, function(element) {
     var category = new bidsy.ui.Category();
@@ -47,6 +48,7 @@ bidsy.ui.LeftSidebar.prototype.enterDocument = function() {
 /** @inheritDoc */
 bidsy.ui.LeftSidebar.prototype.exitDocument = function() {
   goog.base(this, 'exitDocument');
+
   goog.array.forEach(this.categories_, function(category) {
     goog.events.unlisten(category, bidsy.ui.EventType.CATEGORY,
                          this.onCategory_);

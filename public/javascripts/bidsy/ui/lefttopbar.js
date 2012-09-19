@@ -48,6 +48,7 @@ bidsy.ui.LeftTopbar.prototype.enterDocument = function() {
 /** @inheritDoc */
 bidsy.ui.LeftTopbar.prototype.exitDocument = function() {
   goog.base(this, 'exitDocument');
+
   goog.events.unlisten(this.homeButton_, goog.events.EventType.CLICK,
                        this.onHomeButtonClick_);
   goog.events.unlisten(this.sellButton_, goog.events.EventType.CLICK,
