@@ -11,4 +11,8 @@
       , "mongoose": "3.x"
       , "socket.io": "0.9.x"
     }
+  , "engines": {
+        "node": "0.8.x"
+      , "npm": "1.1.x"
+    }
 }
