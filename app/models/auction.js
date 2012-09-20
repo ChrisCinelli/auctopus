@@ -10,7 +10,7 @@ var AuctionSchema = new Schema({
   , title: String
   , description: String
   , condition: Number
-  , expiration: Date
+  , expiration: Number
   , images: [String]
   , minimum: Number
   , createdAt: {type: Date, default: Date.now}

@@ -8990,6 +8990,13 @@ a.badge:hover {
 }
 .sell-container .sell .sell-body .btn-next {
   float: right;
+  clear: both;
+}
+.sell-container .sell .sell-body #datepicker {
+  display: inline-block;
+}
+.sell-container .sell .sell-body #timepicker {
+  display: inline-block;
 }
 .topbar {
   height: 70px;

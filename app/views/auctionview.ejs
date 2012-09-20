@@ -2,19 +2,21 @@
   <legend>Great! Let's iron out some of the auction details now.</legend>
 
   <div class="control-group">
-    <label class="input-label control-label" for="datepicker">Date</label>
+    <label class="input-label control-label" for="auction-date">Date</label>
     <div class="controls">
-      <input type="text" class="input-xlarge" id="datepicker" placeholder="Enter a listing date..."/>
+      <input type="text" class="input-xlarge" id="auction-date" />
       <span class="help-inline"></span>
     </div>
+    <div id="datepicker"></div>
   </div>
 
   <div class="control-group">
-    <label class="input-label control-label" for="timepicker">Time</label>
+    <label class="input-label control-label" for="auction-time">Time</label>
     <div class="controls">
-      <input type="text" class="input-xlarge" id="timepicker" placeholder="And a time..."/>
+      <input type="text" class="input-xlarge" id="auction-time" />
       <span class="help-inline"></span>
     </div>
+    <div id="timepicker"></div>
   </div>
 
   <div class="control-group">
@@ -32,7 +34,13 @@
   <button class="btn btn-primary btn-next auction-next">Next</button>
 
   <script type="text/javascript">
-    $("#datepicker").datepicker({});
-    $('#timepicker').timepicker({ showPeriod: true, showLeadingZero: true });
+    $("#datepicker").datepicker({
+        altField: "#auction-date"
+    });
+    $('#timepicker').timepicker({
+        altField: "#auction-time"
+      , showPeriod: true
+      , showLeadingZero: true
+    });
   </script>
 </div>
