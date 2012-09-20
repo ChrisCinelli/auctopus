@@ -17,7 +17,7 @@ var app = express();
 app.use(partials());
 
 app.configure(function() {
-  app.set('port', process.env.PORT || 8080);
+  app.set('port', process.env.PORT || 5000);
   app.set('views', __dirname + '/app/views');
   app.set('view engine', 'ejs');
   app.use(express.favicon(__dirname + '/public/favicon.ico'));
