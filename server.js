@@ -7,7 +7,15 @@ var express = require('express')
   , path = require('path')
   , sio = require('socket.io');
 
-mongoose.connect('mongodb://localhost/auctopus');
+var MONGO_USERNAME = 'heroku_app7740932'
+  , MONGO_PASSWORD = 'dhu39atc7vghogpe11c5okoseh'
+  , MONGO_HOST = 'ds037907-a.mongolab.com'
+  , MONGO_PORT = 37907
+  , MONGO_DB = 'heroku_app7740932';
+
+// mongoose.connect('mongodb://localhost/auctopus');
+mongoose.connect('mongodb://' + MONGO_USERNAME + ':' + MONGO_PASSWORD +
+                 '@' + MONGO_HOST + ':' + MONGO_PORT + '/' + MONGO_DB);
 var modelPath = __dirname + '/app/models';
 fs.readdirSync(modelPath).forEach(function(file) {
   require(modelPath + '/' + file);
