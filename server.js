@@ -42,6 +42,10 @@ http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
 
   var io = sio.listen(this);
+  io.configure(function() {
+    io.set('transports', ['xhr-polling']); 
+    io.set('polling duration', 20);
+  });
   io.sockets.on('connection', function(socket) {
     console.log('Client ' + socket.id + ' connected!');
 
