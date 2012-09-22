@@ -9,6 +9,8 @@
       , "express-partials": "*"
       , "less-middleware": "*"
       , "mongoose": "3.x"
+      , "optimist": "*"
+      , "passport": "*"
       , "socket.io": "0.9.x"
     }
   , "engines": {

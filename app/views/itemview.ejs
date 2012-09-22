@@ -1,81 +1,93 @@
 <div class="item-view">
-  <form class="form-horizontal">
-    <legend>What are you looking to sell?</legend>
+  <legend>What are you looking to sell?</legend>
 
-    <div class="control-group">
-      <label class="input-label control-label">Categories</label>
-      <div class="controls">
-        <table class="table table-striped" id="item-categories">
-          <% for (var i = 0; i < rows; i++) { %>
-            <tr>
-              <% for (var j = i * cols; j < (i + 1) * cols; j++) { %>
-                <td>
-                  <% var category = categories[j] %>
-                  <% if (category) { %>
-                    <input type="checkbox" class="category-checkbox" id="<%= category.name %>-checkbox" />
-                    <div class="category-label"><%= category.label %></div>
-                  <% } %>
-                </td>
-              <% } %>
-            </tr>
-          <% } %>
-        </table>
-        <span class="help-inline"></span>
-      </div>
+  <div class="control-group">
+    <label class="input-label control-label">Categories</label>
+    <div class="controls">
+      <table class="table table-striped" id="item-categories">
+        <% for (var i = 0; i < rows; i++) { %>
+          <tr>
+            <% for (var j = i * cols; j < (i + 1) * cols; j++) { %>
+              <td>
+                <% var category = categories[j] %>
+                <% if (category) { %>
+                  <input type="checkbox" class="category-checkbox" id="<%= category.name %>-checkbox" />
+                  <div class="category-label"><%= category.label %></div>
+                <% } %>
+              </td>
+            <% } %>
+          </tr>
+        <% } %>
+      </table>
+      <span class="help-inline"></span>
     </div>
-    <br /><br />
+  </div>
 
-    <div class="control-group">
-      <label class="input-label control-label" for="item-title">Title</label>
-      <div class="controls">
-        <input class="input-xxlarge" id="item-title" type="text"
-               placeholder="Short, sweet, and descriptive..." />
-        <span class="help-inline"></span>
-      </div>
+  <div class="control-group">
+    <label class="input-label control-label" for="item-title">Title</label>
+    <div class="controls">
+      <input class="input-xxlarge" id="item-title" type="text" />
+      <span class="help-inline"></span>
     </div>
-    <br /><br />
+  </div>
 
-    <div class="control-group">
-      <label class="input-label control-label" for="item-description">Description</label>
-      <div class="controls">
-        <textarea class="input-xxlarge" id="item-description" rows="5"></textarea>
-        <span class="help-inline"></span>
-      </div>
+  <div class="control-group">
+    <label class="input-label control-label" for="item-description">Description</label>
+    <div class="controls">
+      <textarea class="input-xxlarge" id="item-description" rows="5"></textarea>
+      <span class="help-inline"></span>
     </div>
-    <br /><br />
+  </div>
 
-    <div class="control-group">
-      <label class="input-label control-label" for="item-condition">Item Condition</label>
-      <div class="controls">
-        <label class="radio">
-          <input type="radio" name="condition" class="condition" id="condition-new" value="new">New</input>
-        </label>
-        <label class="radio">
-          <input type="radio" name="condition" class="condition" id="condition-like-new" value="like-new">Like New</input>
-        </label>
-        <label class="radio">
-          <input type="radio" name="condition" class="condition" id="condition-good" value="good">Good</input>
-        </label>
-        <label class="radio">
-          <input type="radio" name="condition" class="condition" id="condition-fair" value="fair">Fair</input>
-        </label>
-        <label class="radio">
-          <input type="radio" name="condition" class="condition" id="condition-catch" value="catch">There's a catch</input>
-        </label>
-      </div>
+  <div class="control-group">
+    <label class="input-label control-label" for="item-condition">Item Condition</label>
+    <div class="controls">
+      <label class="radio">
+        <input type="radio" name="condition" class="condition" id="condition-new" value="new">New</input>
+      </label>
+      <label class="radio">
+        <input type="radio" name="condition" class="condition" id="condition-like-new" value="like-new">Like New</input>
+      </label>
+      <label class="radio">
+        <input type="radio" name="condition" class="condition" id="condition-good" value="good">Good</input>
+      </label>
+      <label class="radio">
+        <input type="radio" name="condition" class="condition" id="condition-fair" value="fair">Fair</input>
+      </label>
+      <label class="radio">
+        <input type="radio" name="condition" class="condition" id="condition-catch" value="catch">There's a catch</input>
+      </label>
     </div>
-    <br /><br />
+  </div>
 
-    <div class="control-group">
-      <label class="input-label control-label" for="item-pictures">Pictures</label>
-      <div class="controls">
-        <input class="input-xxlarge" id="item-pictures" type="text"
-               placeholder="Enter URLs pointing to pictures of your item delimited by commas..." />
-        <span class="help-inline"></span>
-      </div>
+  <div class="control-group">
+    <label class="input-label control-label" for="item-images">Pictures</label>
+    <div class="controls">
+      <input class="input-xxlarge" id="item-images" type="text"
+             placeholder="Enter URLs pointing to pictures of your item delimited by commas..." />
+      <span class="help-inline"></span>
     </div>
-    <br /><br />
-  </form>
+  </div>
+
+  <div class="control-group">
+    <label class="input-label control-label" for="item-duration">Auction Duration</label>
+    <div class="controls">
+      <input type="text" class="input-small" id="item-duration" placeholder="1-7" />
+      <span class="help-inline"></span>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="input-label control-label" for="item-minimum">Minimum</label>
+    <div class="controls">
+      <div class="input-prepend input-append">
+        <span class="add-on">$</span>
+        <input class="span2" id="item-minimum" size="16" type="text" placeholder="Start the bidding at" />
+        <span class="add-on">.00</span>
+      </div>
+      <span class="help-inline"></span>
+    </div>
+  </div>
 
   <button class="btn btn-primary btn-next item-next">Next</button>
 </div>

@@ -1,4 +1,6 @@
 
+var util = require('./util');
+
 var mongoose = require('mongoose')
   , Auction = mongoose.model('Auction')
   , Bid = mongoose.model('Bid')
@@ -44,9 +46,31 @@ exports.disconnect = function(io, socket) {
 
 
 exports.createAuction = function(io, socket, data, callback) {
-  // TODO(gareth)
-  console.log(data);
-  callback(data);
+  getCategoriesByNames(data.categories, function(categories) {
+    getCategoriesIds(categories, function(ids) {
+      var auction = new Auction({
+          bids: []
+        , categories: ids
+        , title: data.title
+        , description: data.description
+        , condition: getCondition(data.condition)
+        , expiration: data.expiration
+        , images: data.images
+        , minimum: data.minimum
+      });
+
+      auction.save(function(err) {
+        util.map(categories, function(category, result) {
+          category.auctions.push(auction.id);
+          category.save();
+          result(category);
+        },
+        function() {
+          callback('200 OK');
+        });
+      });
+    });
+  });
 };
 
 
@@ -72,21 +96,61 @@ exports.joinRoom = function(io, socket, data, callback) {
       }
   ]);
 
-  // TODO(gareth): Make sure we've populated users before we write back...
-  var users = [];
-  io.sockets.clients(room).forEach(function(client) {
-    users.push({
-        'id': client.id
-      , 'sign': '+'
-    });
-  }, this);
-
-  Category.findOne({ name: data.category })
-      .populate('auctions')
-      .exec(function(err, category) {
-        callback({
-            auctions: category.auctions
-          , users: users
+  util.map(io.sockets.clients(room),
+      function(client, result) {
+        result({
+            'id': client.id
+          , 'sign': '+'
         });
-      });
-}
+      }
+    , function(users) {
+        Category.findOne({ name: data.category })
+            .populate('auctions')
+            .exec(function(err, category) {
+              callback({
+                  auctions: category.auctions
+                , users: users
+              });
+            });
+      }
+  );
+};
+
+
+var getCategoriesByNames = function(names, res) {
+  util.map(names, function(name, result) {
+    Category.findOne({ name: name })
+        .exec(function(err, category) {
+          if (err) {
+            throw err;
+          }
+
+          result(category);
+        });
+  }, res);
+};
+
+
+var getCategoriesIds = function(categories, res) {
+  util.map(categories, function(category, result) {
+    result(category.id);
+  }, res);
+};
+
+
+var getCondition = function(condition) {
+  switch (condition) {
+    case 'new':
+      return 5;
+    case 'like-new':
+      return 4;
+    case 'good':
+      return 3;
+    case 'fair':
+      return 2;
+    case 'catch':
+      return 1;
+    default:
+      return -1;
+  }
+};

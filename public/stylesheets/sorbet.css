@@ -6943,12 +6943,12 @@ a.badge:hover {
   position: fixed;
 }
 .left-sidebar {
-  width: 264px;
-  width: 264px;
-  width: 264px;
-  width: 264px;
-  width: 264px;
-  width: 264px;
+  width: 250px;
+  width: 250px;
+  width: 250px;
+  width: 250px;
+  width: 250px;
+  width: 250px;
   float: left;
   clear: left;
   cursor: pointer;
@@ -7014,7 +7014,7 @@ a.badge:hover {
 }
 .main-container {
   height: 100%;
-  padding: 0 264px 0 264px;
+  padding: 0 250px 0 250px;
 }
 .main-container .stage {
   height: 320px;
@@ -8826,12 +8826,12 @@ a.badge:hover {
   }
 }
 .right-sidebar {
-  width: 264px;
-  width: 264px;
-  width: 264px;
-  width: 264px;
-  width: 264px;
-  width: 264px;
+  width: 250px;
+  width: 250px;
+  width: 250px;
+  width: 250px;
+  width: 250px;
+  width: 250px;
   float: right;
   clear: right;
 }
@@ -8866,7 +8866,7 @@ a.badge:hover {
   color: black;
 }
 .right-sidebar .upcoming .queued {
-  width: 264px;
+  width: 250px;
   height: 60px;
   line-height: 60px;
   border-bottom: 1px solid #c0c0c0;
@@ -8949,7 +8949,7 @@ a.badge:hover {
 }
 .sell-container {
   height: 100%;
-  padding: 0 264px 0 264px;
+  padding: 0 200px 0 200px;
   display: block;
 }
 .sell-container .sell {
@@ -9000,7 +9000,7 @@ a.badge:hover {
 }
 .topbar {
   height: 70px;
-  padding: 10px 264px 0 264px;
+  padding: 10px 250px 0 250px;
   background-color: white;
   box-shadow: 1px 1px 3px 1px #808080;
   -webkit-box-shadow: 1px 1px 3px 1px #808080;
@@ -9041,13 +9041,13 @@ a.badge:hover {
 }
 .left-topbar {
   float: left;
-  width: 254px;
+  width: 240px;
   display: inline-block;
   padding: 20px 0 5px 20px;
 }
 .right-topbar {
   float: right;
-  width: 254px;
+  width: 240px;
   display: inline-block;
   font-weight: bold;
 }

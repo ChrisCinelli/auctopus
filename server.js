@@ -2,6 +2,7 @@
 var express = require('express')
   , fs = require('fs')
   , partials = require('express-partials')
+  , passport = require('passport')
   , http = require('http')
   , mongoose = require('mongoose')
   , path = require('path')
