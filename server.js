@@ -36,7 +36,8 @@ passport.use(
     new FacebookStrategy({
         clientID: '424576460933355'
       , clientSecret: '7deb6bb54bd005f636b2afcfbd0c2e68'
-      , callbackURL: 'http://localhost:5000/auth/facebook/callback'
+      , callbackURL: 'http://staging.auctet.com/auth/callback/facebook'
+      // , callbackURL: 'http://localhost:5000/auth/facebook/callback'
     } 
   , auctopus.findOrCreateFacebookUser
 ));
