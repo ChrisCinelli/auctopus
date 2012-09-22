@@ -5,6 +5,21 @@
   </div>
 </div>
 <div class="right-topbar">
+  <% if (user) { %>
+    <div class="user-panel">
+      <img class="fbthumb" src="http://graph.facebook.com/<%= user.fbuid %>/picture" />
+
+      <div class="dropdown">
+        <%= user.firstName %>
+        <%= user.lastName %>
+        <b class="caret"></b>
+      </div>
+    </div>
+  <% } else { %>
+    <div class="facebook-connect">
+      <a href="/auth/facebook"><img class="facebook-connect-button" src="images/facebook-connect.png" /></a>
+    </div>
+  <% } %>
 </div>
 <div class="topbar">
   <img src="images/auction_blue.png" class="logo" />

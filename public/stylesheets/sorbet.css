@@ -9052,14 +9052,16 @@ a.badge:hover {
   font-weight: bold;
 }
 .right-topbar .facebook-connect {
-  padding: 15px 0 5px 10px;
+  padding-top: 15px;
+  padding-right: 10px;
 }
 .right-topbar .facebook-connect .facebook-connect-button {
   width: 233px;
   height: 40px;
 }
 .right-topbar .user-panel {
-  padding: 10px 0 5px 10px;
+  padding-top: 15px;
+  padding-left: 10px;
 }
 .right-topbar .user-panel .fbthumb {
   width: 50px;

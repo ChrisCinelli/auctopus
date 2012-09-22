@@ -6,16 +6,15 @@ var mongoose = require('mongoose')
 var UserSchema = new Schema({
     auctions: [{ type: Schema.Types.ObjectId, ref: 'Auction' }]
   , bids: [{ type: Schema.Types.ObjectId, ref: 'Bid' }]
-  , fbme: String
+  , fbme: Schema.Types.Mixed
   , fbuid: Number
   , firstName: String
   , lastName: String
-  , email: String
-  , location: String
-  , image: String
+  , emails: Schema.Types.Mixed
   , birthday: String
+  , gender: String
+  , location: Schema.Types.Mixed
   , fbtoken: String
-  , fbexpire: Number
   , createdAt: {type: Date, default: Date.now}
   , updatedAt: {type: Date, default: Date.now}
 });

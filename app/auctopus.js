@@ -21,7 +21,8 @@ exports.index = function(req, res) {
         }
 
         res.render('index', {
-          categories: categories
+            categories: categories
+          , user: req.user
         });
       });
 };
@@ -81,6 +82,36 @@ exports.deleteAuction = function(io, socket, data, callback) {
 
 exports.editAuction = function(io, socket, data, callback) {
   // TODO(gareth)
+};
+
+
+
+exports.findOrCreateFacebookUser = function(accessToken, refreshToken,
+                                            profile, callback) {
+  var fbuid = profile.id;
+  User.findOne({ fbuid: profile.id }, function(err, user) {
+    if (!user) {
+      user = new User({
+          auctions: []
+        , bids: []
+        , fbuid: fbuid
+      });
+    }
+
+    // Update attributes
+    user.fbme = profile._json;
+    user.firstName = profile.name.givenName;
+    user.lastName = profile.name.familyName;
+    user.emails = profile.emails;
+    user.birthday = profile._json.birthday;
+    user.gender = profile.gender;
+    user.location = profile._json.location;
+    user.fbtoken = accessToken;
+
+    user.save(function(err) {
+      callback(null, user);
+    });
+  });
 };
 
 
