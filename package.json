@@ -4,7 +4,7 @@
   , "private": true
   , "scripts": { "start": "node server" }
   , "dependencies": {
-        "connect-mongo": "*"
+        "connect-mongo": "0.2.x"
       , "ejs": "*"
       , "express": "3.x"
       , "express-partials": "*"
