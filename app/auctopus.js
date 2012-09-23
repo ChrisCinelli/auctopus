@@ -38,16 +38,17 @@ Auctopus.prototype.setIO = function(io) {
  * GET /
  */
 Auctopus.prototype.index = function(req, res) {
+  var auctopus = this;
   Category
       .find({})
-      .sort({ 'label': 1 })
+      .sort({ label: 1 })
       .exec(function(err, categories) {
         if (err) {
           throw err;
         }
 
-        res.render.call(this, 'index', {
-            bidsy: this.env_
+        res.render('index', {
+            bidsy: auctopus.env_
           , categories: categories
           , user: req.user
         });

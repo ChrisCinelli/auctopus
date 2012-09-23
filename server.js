@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 
 /**
  * Module dependencies.
@@ -109,7 +108,9 @@ app.configure('development', function(){
 /**
  * HTTP routes
  */
-app.get('/', auctopus.index);
+app.get('/', function(req, res) {
+  auctopus.index(req, res);
+});
 app.get('/auth/facebook', passport.authenticate('facebook', {
     scope: [ 'email', 'user_birthday', 'user_location']
 }));
