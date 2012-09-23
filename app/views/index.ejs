@@ -50,8 +50,10 @@
 
     <div class="sell-body">
       <%- partial('itemview', { rows: Math.ceil(categories.length / 3), cols: 3, categories: categories }) %>
-      <%- partial('paymentview') %>
-      <%- partial('shareview') %>
+      <div class="payment-view">
+        <button class="btn btn-primary btn-next sell-submit">Submit</button>
+      </div>
+      <div class="share-view"></div>
     </div>
   </div>
 </div>
