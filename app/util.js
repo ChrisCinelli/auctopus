@@ -20,7 +20,7 @@ exports.map = function(collection, fxn, callback, thisarg) {
 
       count--;
       if (count == 0) {
-        callback.call(this, results);
+        callback.call(thisarg, results);
       }
     });
   });
