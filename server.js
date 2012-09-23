@@ -59,7 +59,6 @@ var sessions = new (require('connect-mongo')(express))({ url: MONGO_URL });
 
 var app = express();
 app.use(partials());
-
 app.configure(function() {
   app.set('port', process.env.PORT || 5000);
   app.set('views', __dirname + '/app/views');
@@ -89,6 +88,7 @@ app.get('/auth/facebook', passport.authenticate('facebook', {
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/' , failureRedirect: '/'
 }));
+
 
 http.createServer(app).listen(app.get('port'), function() {
   console.log('Express server listening on port ' + app.get('port'));
