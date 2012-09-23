@@ -187,7 +187,7 @@ Auctopus.prototype.getCategoriesByNames_ = function(names, res) {
 
           result(category);
         });
-  }, res);
+  }, res, this);
 };
 
 
@@ -197,7 +197,7 @@ Auctopus.prototype.getCategoriesByNames_ = function(names, res) {
 Auctopus.prototype.getCategoriesIds_ = function(categories, res) {
   util.map(categories, function(category, result) {
     result(category.id);
-  }, res);
+  }, res, this);
 };
 
 
