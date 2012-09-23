@@ -1,7 +1,4 @@
 
-/**
- * Module dependencies.
- */
 var express = require('express')
   , connect = require('connect')
   , cookie = require('express/node_modules/cookie')
@@ -14,15 +11,7 @@ var express = require('express')
   , sio = require('socket.io');
 
 
-/**
- * Discover server environment.
- */
 var env = process.env.NODE_ENV || 'dev';
-
-
-/**
- * Constant declarations.
- */
 var MONGO_USERNAME = 'heroku_app7740932'
   , MONGO_PASSWORD = 'dhu39atc7vghogpe11c5okoseh'
   , MONGO_HOST = 'ds037907-a.mongolab.com'
@@ -36,26 +25,16 @@ var FB_CALLBACK_URL =
     '/auth/facebook/callback';
 
 
-/**
- * Establish a database connection and load db models.
- */
+// Establish a database connection and load db models and controller.
 mongoose.connect(MONGO_URL);
 var modelPath = __dirname + '/app/models';
 fs.readdirSync(modelPath).forEach(function(file) {
   require(modelPath + '/' + file);
 });
+var auctopus = new (require('./app/auctopus'))().setEnv(env);
 
 
-/**
- * Load the controller after the models have been loaded.
- */
-var auctopus = new (require('./app/auctopus'))();
-auctopus.setEnv(env);
-
-
-/**
- * Set up PassportJS.
- */
+// Initialize PassportJS for Facebook Connect.
 var FacebookStrategy = require('passport-facebook').Strategy;
 passport.use(
     new FacebookStrategy({
@@ -74,15 +53,10 @@ passport.deserializeUser(function(id, callback) {
 });
 
 
-/**
- * Get the session store.
- */
+// Get the session store.
 var sessions = new (require('connect-mongo')(express))({ url: MONGO_URL });
 
 
-/**
- * Configure express.
- */
 var app = express();
 app.use(partials());
 
@@ -100,14 +74,12 @@ app.configure(function() {
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.favicon(__dirname + '/public/favicon.ico'));
 });
-
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-/**
- * HTTP routes
- */
+
+// HTTP routes
 app.get('/', function(req, res) {
   auctopus.index(req, res);
 });
@@ -156,9 +128,7 @@ http.createServer(app).listen(app.get('port'), function() {
       }
     });
 
-    /**
-     * WebSocket routes
-     */
+    // WebSocket routes
     socket.on('disconnect', function() {
       auctopus.disconnect(user, socket);
     });
