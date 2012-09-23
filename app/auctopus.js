@@ -8,6 +8,10 @@ var mongoose = require('mongoose')
     User = mongoose.model('User');
 
 
+// TODO(gareth): Figure out where this should be...
+var clientIdToUser = {};
+
+
 /**
  * Gets called on GET / and renders the homepage.
  */
@@ -28,7 +32,7 @@ exports.index = function(req, res) {
 };
 
 
-exports.disconnect = function(io, socket) {
+exports.disconnect = function(io, socket, user) {
   for (var room in io.sockets.manager.roomClients[socket.id]) {
     if (/^\s*$/.test(room)) {
       continue;
@@ -46,7 +50,7 @@ exports.disconnect = function(io, socket) {
 };
 
 
-exports.createAuction = function(io, socket, data, callback) {
+exports.createAuction = function(io, socket, user, data, callback) {
   getCategoriesByNames(data.categories, function(categories) {
     getCategoriesIds(categories, function(ids) {
       var auction = new Auction({
@@ -75,12 +79,12 @@ exports.createAuction = function(io, socket, data, callback) {
 };
 
 
-exports.deleteAuction = function(io, socket, data, callback) {
+exports.deleteAuction = function(io, socket, user, data, callback) {
   // TODO(gareth)
 };
 
 
-exports.editAuction = function(io, socket, data, callback) {
+exports.editAuction = function(io, socket, user, data, callback) {
   // TODO(gareth)
 };
 
@@ -115,23 +119,26 @@ exports.findOrCreateFacebookUser = function(accessToken, refreshToken,
 };
 
 
-exports.joinRoom = function(io, socket, data, callback) {
+exports.joinRoom = function(io, socket, user, data, callback) {
   var room = data.category;
 
   // Join and tell everyone in the room.
-  socket.join(room);
   io.sockets.in(room).emit('userDeltas', [
       {
           'id': socket.id
-        , 'sign': '+',
+        , 'sign': '+'
+        , 'user': user
       }
   ]);
+  socket.join(room);
+  clientIdToUser[socket.id] = user;
 
   util.map(io.sockets.clients(room),
       function(client, result) {
         result({
             'id': client.id
           , 'sign': '+'
+          , 'user': clientIdToUser[client.id]
         });
       }
     , function(users) {
