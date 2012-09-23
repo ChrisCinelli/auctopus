@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 
 /**
  * Module dependencies.
@@ -15,6 +16,12 @@ var express = require('express')
 
 
 /**
+ * Discover server environment.
+ */
+var env = process.env.NODE_ENV || 'dev';
+
+
+/**
  * Constant declarations.
  */
 var MONGO_USERNAME = 'heroku_app7740932'
@@ -25,6 +32,9 @@ var MONGO_USERNAME = 'heroku_app7740932'
   , SECRET = '41150ng4r37hh4rv3y4nd11nu5';
 var MONGO_URL = 'mongodb://' + MONGO_USERNAME + ':' + MONGO_PASSWORD +
                 '@' + MONGO_HOST + ':' + MONGO_PORT + '/' + MONGO_DB;
+var FB_CALLBACK_URL =
+    'http://' + (env == 'prod' ? 'staging.auctet.com' : 'localhost:5000') +
+    '/auth/facebook/callback';
 
 
 /**
@@ -38,9 +48,10 @@ fs.readdirSync(modelPath).forEach(function(file) {
 
 
 /**
- * Load the controller actions after the models have been loaded.
+ * Load the controller after the models have been loaded.
  */
-var auctopus = require('./app/auctopus');
+var auctopus = new (require('./app/auctopus'))();
+auctopus.setEnv(env);
 
 
 /**
@@ -51,16 +62,14 @@ passport.use(
     new FacebookStrategy({
         clientID: '424576460933355'
       , clientSecret: '7deb6bb54bd005f636b2afcfbd0c2e68'
-      , callbackURL: 'http://staging.auctet.com/auth/facebook/callback'
-      // , callbackURL: 'http://localhost:5000/auth/facebook/callback'
-    } 
-  , auctopus.findOrCreateFacebookUser
+      , callbackURL: FB_CALLBACK_URL
+    } , auctopus.findOrCreateUser
 ));
 passport.serializeUser(function(user, callback) {
   callback(null, user.id);
 });
 passport.deserializeUser(function(id, callback) {
-  User.findById(id, function (err, user) {
+  User.findById(id, function(err, user) {
     callback(err, user);
   });
 });
@@ -97,7 +106,9 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-// HTTP routes
+/**
+ * HTTP routes
+ */
 app.get('/', auctopus.index);
 app.get('/auth/facebook', passport.authenticate('facebook', {
     scope: [ 'email', 'user_birthday', 'user_location']
@@ -124,6 +135,7 @@ http.createServer(app).listen(app.get('port'), function() {
         data.cookie['connect.sid'], SECRET);
     accept(null, true);
   });
+  auctopus.setIO(io);
 
   io.sockets.on('connection', function(socket) {
     console.log('Client with socket id ' + socket.id + ' and session id ' +
@@ -143,21 +155,23 @@ http.createServer(app).listen(app.get('port'), function() {
       }
     });
 
-    // WebSocket routes
+    /**
+     * WebSocket routes
+     */
     socket.on('disconnect', function() {
-      auctopus.disconnect(io, socket, user);
+      auctopus.disconnect(user, socket);
     });
     socket.on('createAuction', function(data, callback) {
-      auctopus.createAuction(io, socket, user, data, callback);
+      auctopus.createAuction(user, socket, data, callback);
     });
     socket.on('deleteAuction', function(data, callback) {
-      auctopus.deleteAuction(io, socket, user, data, callback);
+      auctopus.deleteAuction(user, socket, data, callback);
     });
     socket.on('editAuction', function(data, callback) {
-      auctopus.editAuction(io, socket, user, data, callback);
+      auctopus.editAuction(user, socket, data, callback);
     });
     socket.on('joinRoom', function(data, callback) {
-      auctopus.joinRoom(io, socket, user, data, callback);
+      auctopus.joinRoom(user, socket, data, callback);
     });
   });
 });

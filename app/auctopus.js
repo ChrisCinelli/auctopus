@@ -8,14 +8,36 @@ var mongoose = require('mongoose')
     User = mongoose.model('User');
 
 
-// TODO(gareth): Figure out where this should be...
-var clientIdToUser = {};
+
+/**
+ * @constructor
+ */
+function Auctopus() {
+  /**
+   * @type {Object}
+   * Map from socket ids to user data.
+   */
+  this.socketIdToUser_ = {};
+};
+module.exports = Auctopus;
+
+
+Auctopus.prototype.setEnv = function(env) {
+  this.env_ = env;
+  return this;
+};
+
+
+Auctopus.prototype.setIO = function(io) {
+  this.io_ = io;
+  return this;
+};
 
 
 /**
- * Gets called on GET / and renders the homepage.
+ * GET /
  */
-exports.index = function(req, res) {
+Auctopus.prototype.index = function(req, res) {
   Category
       .find({})
       .sort({ 'label': 1 })
@@ -24,41 +46,40 @@ exports.index = function(req, res) {
           throw err;
         }
 
-        res.render('index', {
-            categories: categories
+        res.render.call(this, 'index', {
+            bidsy: this.env_
+          , categories: categories
           , user: req.user
         });
       });
 };
 
 
-exports.disconnect = function(io, socket, user) {
-  for (var room in io.sockets.manager.roomClients[socket.id]) {
+Auctopus.prototype.disconnect = function(user, socket) {
+  for (var room in this.io_.sockets.manager.roomClients[socket.id]) {
     if (/^\s*$/.test(room)) {
-      continue;
+      return;
     }
 
     room = room.substr(1, room.length);
+    this.io_.sockets.in(room).emit('userDeltas', [{
+        id: socket.id
+      , sign: '-'
+      , user: user
+    }]);
   }
-
-  io.sockets.in(room).emit('userDeltas', [
-      {
-          'id': socket.id
-        , 'sign': '-'
-      }
-  ]);
 };
 
 
-exports.createAuction = function(io, socket, user, data, callback) {
-  getCategoriesByNames(data.categories, function(categories) {
-    getCategoriesIds(categories, function(ids) {
+Auctopus.prototype.createAuction = function(user, socket, data, callback) {
+  this.getCategoriesByNames_(data.categories, function(categories) {
+    this.getCategoriesIds_(categories, function(ids) {
       var auction = new Auction({
           bids: []
         , categories: ids
         , title: data.title
         , description: data.description
-        , condition: getCondition(data.condition)
+        , condition: this.getCondition_(data.condition)
         , expiration: data.expiration
         , images: data.images
         , minimum: data.minimum
@@ -67,8 +88,9 @@ exports.createAuction = function(io, socket, user, data, callback) {
       auction.save(function(err) {
         util.map(categories, function(category, result) {
           category.auctions.push(auction.id);
-          category.save();
-          result(category);
+          category.save(function(err) {
+            result(category);
+          });
         },
         function() {
           callback('200 OK');
@@ -79,21 +101,20 @@ exports.createAuction = function(io, socket, user, data, callback) {
 };
 
 
-exports.deleteAuction = function(io, socket, user, data, callback) {
+Auctopus.prototype.deleteAuction = function(user, socket, data, callback) {
   // TODO(gareth)
 };
 
 
-exports.editAuction = function(io, socket, user, data, callback) {
+Auctopus.prototype.editAuction = function(user, socket, data, callback) {
   // TODO(gareth)
 };
 
 
-
-exports.findOrCreateFacebookUser = function(accessToken, refreshToken,
-                                            profile, callback) {
+Auctopus.prototype.findOrCreateUser = function(accessToken, refreshToken,
+                                               profile, callback) {
   var fbuid = profile.id;
-  User.findOne({ fbuid: profile.id }, function(err, user) {
+  User.findOne({ fbuid: fbuid }, function(err, user) {
     if (!user) {
       user = new User({
           auctions: []
@@ -113,32 +134,30 @@ exports.findOrCreateFacebookUser = function(accessToken, refreshToken,
     user.fbtoken = accessToken;
 
     user.save(function(err) {
-      callback(null, user);
+      callback(err, user);
     });
   });
 };
 
 
-exports.joinRoom = function(io, socket, user, data, callback) {
+Auctopus.prototype.joinRoom = function(user, socket, data, callback) {
   var room = data.category;
 
   // Join and tell everyone in the room.
-  io.sockets.in(room).emit('userDeltas', [
-      {
-          'id': socket.id
-        , 'sign': '+'
-        , 'user': user
-      }
-  ]);
+  this.io_.sockets.in(room).emit('userDeltas', [{
+      id: socket.id
+    , sign: '+'
+    , user: user
+  }]);
   socket.join(room);
-  clientIdToUser[socket.id] = user;
+  this.socketIdToUser_[socket.id] = user;
 
-  util.map(io.sockets.clients(room),
+  util.map(this.io_.sockets.clients(room),
       function(client, result) {
         result({
-            'id': client.id
-          , 'sign': '+'
-          , 'user': clientIdToUser[client.id]
+            id: client.id
+          , sign: '+'
+          , user: this.socketIdToUser_[client.id]
         });
       }
     , function(users) {
@@ -150,12 +169,14 @@ exports.joinRoom = function(io, socket, user, data, callback) {
                 , users: users
               });
             });
-      }
-  );
+      }, this);
 };
 
 
-var getCategoriesByNames = function(names, res) {
+/**
+ * @private
+ */
+Auctopus.prototype.getCategoriesByNames_ = function(names, res) {
   util.map(names, function(name, result) {
     Category.findOne({ name: name })
         .exec(function(err, category) {
@@ -169,14 +190,20 @@ var getCategoriesByNames = function(names, res) {
 };
 
 
-var getCategoriesIds = function(categories, res) {
+/**
+ * @private
+ */
+Auctopus.prototype.getCategoriesIds_ = function(categories, res) {
   util.map(categories, function(category, result) {
     result(category.id);
   }, res);
 };
 
 
-var getCondition = function(condition) {
+/**
+ * @private
+ */
+Auctopus.prototype.getCondition_ = function(condition) {
   switch (condition) {
     case 'new':
       return 5;
