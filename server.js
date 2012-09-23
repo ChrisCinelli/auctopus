@@ -95,7 +95,6 @@ http.createServer(app).listen(app.get('port'), function() {
 
   var io = sio.listen(this);
   io.configure(function() {
-    io.set('origins', '*');
     io.set('polling duration', 20);
     io.set('transports', ['xhr-polling']); 
   });
