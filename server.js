@@ -31,7 +31,7 @@ var modelPath = __dirname + '/app/models';
 fs.readdirSync(modelPath).forEach(function(file) {
   require(modelPath + '/' + file);
 });
-var auctopus = new (require('./app/auctopus'))().setEnv(env);
+var auctopus = new (require('./app/controllers/auctopus'))().setEnv(env);
 
 
 // Initialize PassportJS for Facebook Connect.
