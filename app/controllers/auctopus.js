@@ -65,7 +65,8 @@ Auctopus.prototype.createAuction = function(user, socket, data, callback) {
   this.getCategoriesByNames_(data.categories, function(categories) {
     this.getCategoriesIds_(categories, function(ids) {
       var auction = new Auction({
-          bids: []
+          seller: user.id
+        , bids: []
         , categories: ids
         , title: data.title
         , description: data.description
@@ -83,6 +84,7 @@ Auctopus.prototype.createAuction = function(user, socket, data, callback) {
           });
         },
         function() {
+          // TODO(gareth): Tell the client what happened
           callback('200 OK');
         });
       });
