@@ -159,7 +159,7 @@ Auctopus.prototype.joinRoom = function(user, socket, data, callback) {
             .exec(function(err, category) {
               callback({
                   auctions: category.auctions
-                , users: users
+                , userDeltas: users
               });
             });
       }, this);
@@ -170,12 +170,14 @@ Auctopus.prototype.joinRoom = function(user, socket, data, callback) {
  * @private
  */
 Auctopus.prototype.leave_ = function(user, socket) {
-  for (var room in this.io_.sockets.manager.roomClients[socket.id]) {
+  var rooms = this.io_.sockets.manager.roomClients[socket.id];
+  for (room in rooms) {
     if (/^\s*$/.test(room)) {
-      return;
+      continue;
     }
 
-    room = room.substr(1, room.length);
+    room = room.substr(1, room.length);   // Remove the /
+    socket.leave(room);
     this.io_.sockets.in(room).emit('userDeltas', [{
         id: socket.id
       , sign: '-'

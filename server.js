@@ -117,7 +117,13 @@ http.createServer(app).listen(app.get('port'), function() {
     var user = null;
     sessions.get(socket.handshake.sessionID, function(err, session) {
       if (err) {
-        throw err;
+        // TODO(gareth): This is causing problems on startup...
+        // Error: no open connections
+        //  at Db._executeQueryCommand (/Users/django/Documents/auctet/auctopus/node_modules/connect-mongo/node_modules/mongodb/lib/mongodb/db.js:1554:14)
+        //  at Cursor.nextObject (/Users/django/Documents/auctet/auctopus/node_modules/connect-mongo/node_modules/mongodb/lib/mongodb/cursor.js:459:13)
+        //  at Cursor.each (/Users/django/Documents/auctet/auctopus/node_modules/connect-mongo/node_modules/mongodb/lib/mongodb/cursor.js:165:12)
+        //  at process.startup.processNextTick.process._tickCallback (node.js:244:9)
+        console.warn(err);
       }
 
       if (session && session.passport && session.passport.user) {
