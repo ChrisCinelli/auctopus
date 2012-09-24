@@ -157,6 +157,7 @@ Auctopus.prototype.joinRoom = function(user, socket, data, callback) {
         Category.findOne({ name: data.category })
             .populate('auctions')
             .exec(function(err, category) {
+              // TODO(gareth): Filter and sort the auctions by expiration
               callback({
                   auctions: category.auctions
                 , userDeltas: users

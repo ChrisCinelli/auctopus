@@ -61,7 +61,7 @@ var app = express();
 app.use(partials());
 app.configure(function() {
   app.set('port', process.env.PORT || 5000);
-  app.set('views', __dirname + '/app/views');
+  app.set('views', path.join(__dirname, 'app/views'));
   app.set('view engine', 'ejs');
   app.use(express.bodyParser());
   app.use(express.cookieParser());
@@ -70,12 +70,12 @@ app.configure(function() {
   app.use(passport.session());
   app.use(app.router);
   app.use(require('less-middleware')({ 
-      src: __dirname + '/public'
+      src: path.join(__dirname, 'public')
     , compress: true
     , optimization: 2
   }));
   app.use(express.static(path.join(__dirname, 'public')));
-  app.use(express.favicon(__dirname + '/public/favicon.ico'));
+  app.use(express.favicon(path.join(__dirname, 'public/favicon.ico')));
 });
 app.configure('development', function(){
   app.use(express.errorHandler());
@@ -134,6 +134,7 @@ http.createServer(app).listen(app.get('port'), function() {
         User.findOne({ _id: session.passport.user })
             .exec(function(err, entry) {
               user = entry;
+              socket.emit('whoami', user);
             });
       }
     });
