@@ -77,7 +77,12 @@ app.configure(function() {
   app.use(express.static(path.join(__dirname, 'public')));
   app.use(express.favicon(__dirname + '/public/favicon.ico'));
 });
-app.configure('development', function(){
+app.configure('production', function() {
+  app.use(express.static(path.join(__dirname, 'public'), {
+      maxAge: 1000 * 60 * 60 * 24 * 365
+  }));
+});
+app.configure('development', function() {
   app.use(express.errorHandler());
 });
 
