@@ -57,18 +57,7 @@ Auctopus.prototype.index = function(req, res) {
 
 
 Auctopus.prototype.disconnect = function(user, socket) {
-  for (var room in this.io_.sockets.manager.roomClients[socket.id]) {
-    if (/^\s*$/.test(room)) {
-      return;
-    }
-
-    room = room.substr(1, room.length);
-    this.io_.sockets.in(room).emit('userDeltas', [{
-        id: socket.id
-      , sign: '-'
-      , user: user
-    }]);
-  }
+  this.leave_(user, socket);
 };
 
 
@@ -144,6 +133,9 @@ Auctopus.prototype.findOrCreateUser = function(accessToken, refreshToken,
 Auctopus.prototype.joinRoom = function(user, socket, data, callback) {
   var room = data.category;
 
+  // Leave any and all rooms we're already in.
+  this.leave_(user, socket);
+
   // Join and tell everyone in the room.
   this.io_.sockets.in(room).emit('userDeltas', [{
       id: socket.id
@@ -173,6 +165,24 @@ Auctopus.prototype.joinRoom = function(user, socket, data, callback) {
       }, this);
 };
 
+
+/**
+ * @private
+ */
+Auctopus.prototype.leave_ = function(user, socket) {
+  for (var room in this.io_.sockets.manager.roomClients[socket.id]) {
+    if (/^\s*$/.test(room)) {
+      return;
+    }
+
+    room = room.substr(1, room.length);
+    this.io_.sockets.in(room).emit('userDeltas', [{
+        id: socket.id
+      , sign: '-'
+      , user: user
+    }]);
+  }
+};
 
 /**
  * @private
