@@ -56,6 +56,49 @@ Auctopus.prototype.index = function(req, res) {
 };
 
 
+Auctopus.prototype.bid = function(user, socket, data, callback) {
+  // TODO(gareth): Handle the cases where multiple people bid at the same time
+  // Especially when they make the same bid at the same time
+  var sockets = this.io_.sockets;
+  Auction.findOne({ _id: data.auction })
+      .populate('categories')
+      .exec(function(err, auction) {
+        if (err) {
+          throw err;
+        }
+
+        var bid = new Bid({
+            auction: data.auction
+          , bidder: user.id
+          , amount: data.amount
+        });
+        bid.save(function(err) {
+          if (err) {
+            throw err;
+          }
+
+          auction.bids.push(bid);
+          auction.save(function(err) {
+            // Tell all of the people who care about this auction
+            // about the new bid
+            util.map(
+                auction.categories
+              , function(category) {
+                  var room = category.name;
+                  sockets.in(room).emit('bid', bid);
+                }
+              , function(results) {
+                  console.log('results = ' + results);
+                  // TODO(gareth): Tell the client what happened
+                  callback('OK');
+                }
+              , this);
+          });
+        });
+      });
+};
+
+
 Auctopus.prototype.disconnect = function(user, socket) {
   this.leave_(user, socket);
 };
@@ -85,7 +128,7 @@ Auctopus.prototype.createAuction = function(user, socket, data, callback) {
         },
         function() {
           // TODO(gareth): Tell the client what happened
-          callback('200 OK');
+          callback('OK');
         });
       });
     });

@@ -143,6 +143,9 @@ http.createServer(app).listen(app.get('port'), function() {
     socket.on('disconnect', function() {
       auctopus.disconnect(user, socket);
     });
+    socket.on('bid', function(data, callback) {
+      auctopus.bid(user, socket, data, callback);
+    });
     socket.on('createAuction', function(data, callback) {
       auctopus.createAuction(user, socket, data, callback);
     });

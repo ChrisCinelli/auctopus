@@ -967,8 +967,8 @@ a.label:hover,a.badge:hover{color:#ffffff;text-decoration:none;cursor:pointer;}
 .main-container .pit{min-height:100%;display:block;background-color:white;border-left:1px solid #c0c0c0;border-right:1px solid #c0c0c0;}.main-container .pit .toolbar{height:100px;background-color:#f2f2f2;border-top:1px solid #c0c0c0;border-bottom:1px solid #c0c0c0;}.main-container .pit .toolbar table{min-width:100%;text-align:center;font-size:18px;font-weight:bold;}.main-container .pit .toolbar table td{width:25%;}
 .main-container .pit .toolbar table .bid-image{width:50px;height:50px;padding:10px;}
 .main-container .pit .toolbar table .bid-input-container{padding-right:15px;}.main-container .pit .toolbar table .bid-input-container .bid-input{height:37px;line-height:37px;max-width:100px;font-size:18px;}
-.main-container .pit .num-people{margin:10px;}
-.main-container .pit .bidder{margin:0 0 10px 10px;display:inline-block;}.main-container .pit .bidder .fbthumb{width:50px;height:50px;}
+.main-container .pit .num-people{margin:20px;}
+.main-container .pit .bidder{margin:0 0 20px 20px;display:inline-block;}.main-container .pit .bidder .fbthumb{width:50px;height:50px;}
 .clearfix{*zoom:1;}.clearfix:before,.clearfix:after{display:table;content:"";line-height:0;}
 .clearfix:after{clear:both;}
 .hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;}
