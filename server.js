@@ -69,16 +69,16 @@ app.configure(function() {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
-  app.use(express.favicon(path.join(__dirname, 'public/favicon.ico')));
-});
-app.configure('development', function() {
-  app.use(express.errorHandler());
   app.use(require('less-middleware')({ 
       src: path.join(__dirname, 'public')
     , compress: true
     , optimization: 2
   }));
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.favicon(path.join(__dirname, 'public/favicon.ico')));
+});
+app.configure('development', function() {
+  app.use(express.errorHandler());
 });
 
 
