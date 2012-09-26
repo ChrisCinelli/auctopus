@@ -38,6 +38,7 @@ Auctopus.prototype.setIO = function(io) {
  * GET /
  */
 Auctopus.prototype.index = function(req, res) {
+  // TODO(gareth): Can we pass context to exec
   var auctopus = this;
   Category
       .find({})
@@ -136,16 +137,6 @@ Auctopus.prototype.createAuction = function(user, socket, data, callback) {
 };
 
 
-Auctopus.prototype.deleteAuction = function(user, socket, data, callback) {
-  // TODO(gareth)
-};
-
-
-Auctopus.prototype.editAuction = function(user, socket, data, callback) {
-  // TODO(gareth)
-};
-
-
 Auctopus.prototype.findOrCreateUser = function(accessToken, refreshToken,
                                                profile, callback) {
   var fbuid = profile.id;
@@ -190,6 +181,16 @@ Auctopus.prototype.joinRoom = function(user, socket, data, callback) {
   socket.join(room);
   this.socketIdToUser_[socket.id] = user;
 
+  function filterAndSortAuctions(auctions) {
+    return auctions
+        .filter(function(auction) {
+          return auction.expiration > Math.round(new Date().getTime() / 1000);
+        })
+        .sort(function(a, b) {
+          return a.expiration > b.expiration;
+        });
+  }
+
   util.map(this.io_.sockets.clients(room),
       function(client, result) {
         result({
@@ -204,7 +205,7 @@ Auctopus.prototype.joinRoom = function(user, socket, data, callback) {
             .exec(function(err, category) {
               // TODO(gareth): Filter and sort the auctions by expiration
               callback({
-                  auctions: category.auctions
+                  auctions: filterAndSortAuctions(category.auctions)
                 , userDeltas: users
               });
             });

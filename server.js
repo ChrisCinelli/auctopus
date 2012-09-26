@@ -69,23 +69,21 @@ app.configure(function() {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use(app.router);
+  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.favicon(path.join(__dirname, 'public/favicon.ico')));
+});
+app.configure('development', function() {
+  app.use(express.errorHandler());
   app.use(require('less-middleware')({ 
       src: path.join(__dirname, 'public')
     , compress: true
     , optimization: 2
   }));
-  app.use(express.static(path.join(__dirname, 'public')));
-  app.use(express.favicon(path.join(__dirname, 'public/favicon.ico')));
-});
-app.configure('development', function(){
-  app.use(express.errorHandler());
 });
 
 
 // HTTP routes
-app.get('/', function(req, res) {
-  auctopus.index(req, res);
-});
+app.get('/', auctopus.index.bind(auctopus));
 app.get('/auth/facebook', passport.authenticate('facebook', {
     scope: [ 'email', 'user_birthday', 'user_location']
 }));
@@ -148,12 +146,6 @@ http.createServer(app).listen(app.get('port'), function() {
     });
     socket.on('createAuction', function(data, callback) {
       auctopus.createAuction(user, socket, data, callback);
-    });
-    socket.on('deleteAuction', function(data, callback) {
-      auctopus.deleteAuction(user, socket, data, callback);
-    });
-    socket.on('editAuction', function(data, callback) {
-      auctopus.editAuction(user, socket, data, callback);
     });
     socket.on('joinRoom', function(data, callback) {
       auctopus.joinRoom(user, socket, data, callback);
