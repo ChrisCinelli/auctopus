@@ -7,7 +7,7 @@
 <div class="right-topbar">
   <% if (user) { %>
     <div class="user-panel">
-      <img class="fbthumb" src="http://graph.facebook.com/<%= user.fbuid %>/picture" />
+      <img class="fbthumb" src="http://graph.facebook.com/<%= user.fbuid %>/picture" alt="Profile picture" />
 
       <div class="dropdown">
         <%= user.firstName %>
@@ -17,7 +17,7 @@
     </div>
   <% } else { %>
     <div class="facebook-connect">
-      <a href="/auth/facebook"><img class="facebook-connect-button" src="images/facebook-connect.png" /></a>
+      <a href="/auth/facebook"><img class="facebook-connect-button" src="images/facebook-connect.png" alt="Login with Facebook" /></a>
     </div>
   <% } %>
 </div>
