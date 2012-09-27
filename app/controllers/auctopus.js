@@ -84,12 +84,12 @@ Auctopus.prototype.bid = function(user, socket, data, callback) {
             // about the new bid
             util.map(
                 auction.categories
-              , function(category) {
+              , function(category, result) {
                   var room = category.name;
                   sockets.in(room).emit('bid', bid);
+                  result();
                 }
               , function(results) {
-                  console.log('results = ' + results);
                   // TODO(gareth): Tell the client what happened
                   callback('OK');
                 }
@@ -109,7 +109,8 @@ Auctopus.prototype.createAuction = function(user, socket, data, callback) {
   this.getCategoriesByNames_(data.categories, function(categories) {
     this.getCategoriesIds_(categories, function(ids) {
       var auction = new Auction({
-          seller: user.id
+          id: auction.id
+        , seller: user.id
         , bids: []
         , categories: ids
         , title: data.title
@@ -121,16 +122,18 @@ Auctopus.prototype.createAuction = function(user, socket, data, callback) {
       });
 
       auction.save(function(err) {
-        util.map(categories, function(category, result) {
-          category.auctions.push(auction.id);
-          category.save(function(err) {
-            result(category);
-          });
-        },
-        function() {
-          // TODO(gareth): Tell the client what happened
-          callback('OK');
-        });
+        util.map(
+            categories
+          , function(category, result) {
+              category.auctions.push(auction.id);
+              category.save(function(err) {
+                result(category);
+              });
+            }
+          , function() {
+              // TODO(gareth): Tell the client what happened
+              callback('OK');
+            });
       });
     });
   });
@@ -181,18 +184,62 @@ Auctopus.prototype.joinRoom = function(user, socket, data, callback) {
   socket.join(room);
   this.socketIdToUser_[socket.id] = user;
 
-  function filterAndSortAuctions(auctions) {
-    return auctions
-        .filter(function(auction) {
-          return auction.expiration > Math.round(new Date().getTime() / 1000);
-        })
-        .sort(function(a, b) {
-          return a.expiration > b.expiration;
-        });
+  function filterAndSortAuctions(auctions, ret) {
+    util.map(
+        auctions
+      , function(auction, result) {
+          if (!auction.bids || auction.bids.length == 0) {
+            result(auction);
+            return;
+          }
+
+          util.map(
+              auction.bids
+            , function(bidId, result) {
+                Bid
+                    .findOne({ _id: bidId })
+                    .populate('bidder')
+                    .exec(function(err, bid) {
+                      if (err) {
+                        throw err;
+                      }
+
+                      result(bid);
+                    });
+              }
+            , function(bids) {
+                // TODO(gareth): Should just be able to set bids on auction...
+                result({
+                    _id: auction._id
+                  , seller: auction.seller
+                  , bids: bids
+                  , categories: auction.categories
+                  , title: auction.title
+                  , description: auction.description
+                  , condition: auction.condition
+                  , expiration: auction.expiration
+                  , images: auction.images
+                  , minimum: auction.minimum
+                  , createdAt: auction.createdAt
+                  , updatedAt: auction.updatedAt
+                });
+              });
+        }
+      , function(results) {
+          ret(results
+                  .filter(function(result) {
+                    return (result.expiration >
+                            Math.round(new Date().getTime() / 1000));
+                  })
+                  .sort(function(a, b) {
+                    return a.expiration > b.expiration;
+                  }));
+      });
   }
 
-  util.map(this.io_.sockets.clients(room),
-      function(client, result) {
+  util.map(
+      this.io_.sockets.clients(room)
+    , function(client, result) {
         result({
             id: client.id
           , sign: '+'
@@ -203,13 +250,15 @@ Auctopus.prototype.joinRoom = function(user, socket, data, callback) {
         Category.findOne({ name: data.category })
             .populate('auctions')
             .exec(function(err, category) {
-              // TODO(gareth): Filter and sort the auctions by expiration
-              callback({
-                  auctions: filterAndSortAuctions(category.auctions)
-                , userDeltas: users
+              filterAndSortAuctions(category.auctions, function(auctions) {
+                callback({
+                    auctions: auctions
+                  , userDeltas: users
+                });
               });
             });
-      }, this);
+      }
+    , this);
 };
 
 
@@ -237,16 +286,18 @@ Auctopus.prototype.leave_ = function(user, socket) {
  * @private
  */
 Auctopus.prototype.getCategoriesByNames_ = function(names, res) {
-  util.map(names, function(name, result) {
-    Category.findOne({ name: name })
-        .exec(function(err, category) {
-          if (err) {
-            throw err;
-          }
+  util.map(
+      names
+    , function(name, result) {
+        Category.findOne({ name: name })
+            .exec(function(err, category) {
+              if (err) {
+                throw err;
+              }
 
-          result(category);
-        });
-  }, res, this);
+              result(category);
+            });
+      }, res, this);
 };
 
 
